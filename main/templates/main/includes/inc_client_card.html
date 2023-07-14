@@ -1,0 +1,21 @@
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h1>{{ client.email }}</h1>
+        <p class="card-text">{{ client.mailings }}</p>
+
+
+        {% if user.is_authenticated %}
+        <p><a class="btn btn-secondary" href="{% url 'main:client_detail' client.pk %}">Посмотреть &raquo;</a></p>
+            {% if user.email == product.user %}
+        <p><a class="btn btn-warning" href="{% url 'main:client_update' client.pk %}">Изменить &raquo;</a></p>
+            {% endif %}
+            {% if user.is_superuser %}
+        <p><a class="btn btn-danger" href="{% url 'main:client_delete' client.pk %}">Удалить &raquo;</a></p>
+            {% endif %}
+        {% else %}
+        <p class="uk-text-center">Войдите для просмотра полной информации </p>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,15 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+    <div class="card-body">
+
+        <h1>{{ mailing.name }}</h1>
+        <p class="card-text">{{ mailing.send_time }}</p>
+        <p class="card-text">{{ mailing.periodicity }}</p>
+        <p class="card-text">{{ mailing.status }}</p>
+
+        <div class="card-footer">
+            <a href="{% url 'main:mailing_list' %}" class="btn btn-primary"><< Назад</a>
+        </div>>
+    </div>
+{% endblock %}

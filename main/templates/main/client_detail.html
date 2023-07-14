@@ -1,0 +1,13 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+    <div class="card-body">
+
+        <h1>{{ mailing.email }}</h1>
+        <p class="card-text">{{ mailing.mailings }}</p>
+
+        <div class="card-footer">
+            <a href="{% url 'main:client_list' %}" class="btn btn-primary"><< Назад</a>
+        </div>>
+    </div>
+{% endblock %}

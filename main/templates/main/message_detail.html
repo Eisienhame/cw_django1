@@ -1,0 +1,15 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+    <div class="card-body">
+
+        <h1>{{ message.theme }}</h1>
+        <p class="card-text">{{ message.content }}</p>
+        <p class="card-text">{{ message.mailing }}</p>
+
+
+        <div class="card-footer">
+            <a href="{% url 'main:message_list' %}" class="btn btn-primary"><< Назад</a>
+        </div>>
+    </div>
+{% endblock %}

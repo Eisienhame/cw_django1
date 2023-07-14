@@ -1,0 +1,26 @@
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h1>{{ mailing.name }}</h1>
+        <p class="card-text">Дата начала: {{ mailing.start_date }}</p>
+        <p class="card-text">Дата конца:  {{ mailing.end_date }}</p>
+        <p class="card-text">Периодичность: {{ mailing.periodicity }}</p>
+        <p class="card-text">Статус: {{ mailing.status }}</p>
+        <p class="card-text">Пользователь: {{ mailing.author }}</p>
+        <p class="card-text">Пользователь2: {{ user.email }}</p>
+        <p class="card-text">Сообщение: {{ mailing.message.content }}</p>
+
+        {% if user.is_authenticated %}
+        <p><a class="btn btn-secondary" href="{% url 'main:mailing_detail' mailing.pk %}">Посмотреть &raquo;</a></p>
+            {% if user.email == mailing.author %}
+        <p><a class="btn btn-warning" href="{% url 'main:mailing_update' mailing.pk %}">Изменить &raquo;</a></p>
+            {% endif %}
+            {% if user.is_superuser %}
+        <p><a class="btn btn-danger" href="{% url 'main:mailing_delete' mailing.pk %}">Удалить &raquo;</a></p>
+            {% endif %}
+        {% else %}
+        <p class="uk-text-center">Войдите для просмотра полной информации </p>
+        {% endif %}
+    </div>
+</div>

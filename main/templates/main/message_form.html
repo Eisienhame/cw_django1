@@ -1,0 +1,25 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+
+        <form class="row" method="post">
+            <div class="card-body">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success"
+                           value="{% if mailing %}Сохранить{% else %} Создать {% endif %}">
+
+                <div class="card-footer">
+                    <a href="{% url 'main:message_list' %}" class="btn btn-primary"><< Назад</a>
+                </div>
+            </div>
+        <div class="col-6">
+            <div class="card">
+               <div class="card-header">
+                   Сообщения
+               </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

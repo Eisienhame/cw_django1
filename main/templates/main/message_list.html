@@ -1,0 +1,12 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="col-12">
+        <a href="{% url 'main:message_create' %}" class="btn btn-primary m-2">Создать запись</a>
+    </div>
+    {% endif %}
+    {% for message in message_list %}
+        {% include 'main/includes/inc_message_card.html' %}
+    {% endfor %}
+{% endblock %}

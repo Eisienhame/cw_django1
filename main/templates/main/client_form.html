@@ -1,0 +1,25 @@
+{% extends 'main/base.html'%}
+
+{% block content %}
+
+        <form class="row" method="post">
+            <div class="card-body">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success"
+                           value="{% if client %}Сохранить{% else %} Создать {% endif %}">
+
+                <div class="card-footer">
+                    <a href="{% url 'main:client_list' %}" class="btn btn-primary"><< Назад</a>
+                </div>
+            </div>
+        <div class="col-6">
+            <div class="card">
+               <div class="card-header">
+                   Клиенты
+               </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
