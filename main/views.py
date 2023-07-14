@@ -7,9 +7,22 @@ from main.models import Mailing, Client, Message
 from main.forms import MailingForm, ClientForm
 from main.services import send_manager
 
-def homepage(request):
-    return render(request, 'main/homepage.html')
 
+class HomeView(generic.TemplateView):
+    template_name = 'main/homepage.html'
+
+    def get_context_data(self, **kwargs):
+        blog = Mailing.objects.order_by('?')[:3]
+        clients_count = len(Client.objects.all())  # кол-во клиентов
+        mailing_count = len(Mailing.objects.all())  # кол-во рассылок
+        mailing_active = len(Mailing.objects.filter(status='LAUNCHED'))  # кол-во активных рассылок
+        context = super().get_context_data()
+        context['mailing_count'] = mailing_count
+        context['mailing_active'] = mailing_active
+        context['clients_count'] = clients_count
+        context['blogs'] = blog
+
+        return context
 
 class MailingListView(LoginRequiredMixin, generic.ListView):
     model = Mailing
