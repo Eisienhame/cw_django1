@@ -1,0 +1,12 @@
+{% load mediapath %}
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <img src="{% mediapath blog.img %}" alt="Картинка"  width="200" height="200"/>
+        <h1>{{ blog.header }}</h1>
+        <p class="card-text">{{ blog.content }}</p>
+        <p class="card-text">{{ blog.views }}</p>
+        <p class="card-text">{{ blog.date }}</p>
+
+    </div>
+</div>

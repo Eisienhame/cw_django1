@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
 from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy
 from main.models import Mailing, Client, Message
+from blog.models import Blog
 from main.forms import MailingForm, ClientForm
 from main.services import send_manager
 
@@ -12,7 +12,7 @@ class HomeView(generic.TemplateView):
     template_name = 'main/homepage.html'
 
     def get_context_data(self, **kwargs):
-        blog = Mailing.objects.order_by('?')[:3]
+        blog = Blog.objects.order_by('?')[:3]
         clients_count = len(Client.objects.all())  # кол-во клиентов
         mailing_count = len(Mailing.objects.all())  # кол-во рассылок
         mailing_active = len(Mailing.objects.filter(status='LAUNCHED'))  # кол-во активных рассылок
