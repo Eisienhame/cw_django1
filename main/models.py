@@ -20,6 +20,20 @@ class Message(models.Model):
         verbose_name_plural = 'сообщения рассылки'
         ordering = ('mailing',)
 
+class Client(models.Model):
+    # Клиенты для рассылки
+    email = models.EmailField(unique=True, verbose_name='почта')
+    author = models.ForeignKey(users.models.User, on_delete=models.CASCADE, verbose_name='автор', **NULLABLE)
+
+    def __str__(self):
+        return f'{self.email}'
+
+    class Meta:
+        verbose_name = 'клиент'
+        verbose_name_plural = 'клиенты'
+        ordering = ('email',)
+
+
 
 class Mailing(models.Model):
 
@@ -45,6 +59,8 @@ class Mailing(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='CREATED', verbose_name='Статус')
     author = models.ForeignKey(users.models.User, on_delete=models.CASCADE, verbose_name='автор', **NULLABLE)
     message = models.ForeignKey(Message, verbose_name='сообщение', on_delete=models.CASCADE, **NULLABLE)
+    clients = models.ManyToManyField(Client, verbose_name='клиенты', **NULLABLE)
+    last_run = models.DateField(verbose_name='дата последней отправки рассылки', **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'
@@ -54,20 +70,6 @@ class Mailing(models.Model):
         verbose_name_plural = 'рассылки'
         ordering = ('name',)
 
-
-class Client(models.Model):
-    # Клиенты для рассылки
-    email = models.EmailField(unique=True, verbose_name='почта')
-    mailings = models.ManyToManyField(Mailing)
-    author = models.ForeignKey(users.models.User, on_delete=models.CASCADE, verbose_name='автор', **NULLABLE)
-
-    def __str__(self):
-        return f'{self.email}'
-
-    class Meta:
-        verbose_name = 'клиент'
-        verbose_name_plural = 'клиенты'
-        ordering = ('email',)
 
 
 

@@ -5,6 +5,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from main.models import Mailing, Client, Message
 from main.forms import MailingForm, ClientForm
+from main.services import send_manager
 
 def homepage(request):
     return render(request, 'main/homepage.html')
@@ -28,6 +29,9 @@ class MailingCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         instance = form.save()
         instance.author = self.request.user
+
+        send_manager()
+
         return super().form_valid(form)
 
 

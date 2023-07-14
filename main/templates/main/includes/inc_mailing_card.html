@@ -13,10 +13,9 @@
 
         {% if user.is_authenticated %}
         <p><a class="btn btn-secondary" href="{% url 'main:mailing_detail' mailing.pk %}">Посмотреть &raquo;</a></p>
-            {% if user.email == mailing.author %}
-        <p><a class="btn btn-warning" href="{% url 'main:mailing_update' mailing.pk %}">Изменить &raquo;</a></p>
-            {% endif %}
             {% if user.is_superuser %}
+        <p><a class="btn btn-warning" href="{% url 'main:mailing_update' mailing.pk %}">Изменить &raquo;</a></p>
+
         <p><a class="btn btn-danger" href="{% url 'main:mailing_delete' mailing.pk %}">Удалить &raquo;</a></p>
             {% endif %}
         {% else %}
