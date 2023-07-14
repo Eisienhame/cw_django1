@@ -1,7 +1,14 @@
 {% extends 'main/base.html'%}
-
+{% load mediapath %}
 {% block content %}
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p class="card-text">Всего рассылок: {{mailing_count}}</p>
+            <p class="card-text">Активных рассылок: {{mailing_active}}</p>
+            <p class="card-text">Количество клиентов: {{clients_count}} </p>
 
+        </div>
+    </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Skystore</h1>
@@ -29,5 +36,19 @@
             </div>
         </div>
     </div>
+
+{%for blog in blogs%}
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <img src="{% mediapath blog.img %}" alt="Картинка"  width="50" height="50"/>
+            <h1>{{ blog.header }}</h1>
+            <p class="card-text">{{ blog.content }}</p>
+            <p class="card-text">{{ blog.views }}</p>
+            <p class="card-text">{{ blog.date }}</p>
+
+        </div>
+    </div>
+{%endfor%}
 
 {% endblock %}
