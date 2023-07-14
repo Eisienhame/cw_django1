@@ -18,22 +18,20 @@ def send_order_email(obj: Mailing):
 
         # запись в таблицу успешного выполнения
         mail_attempt = Attempt.objects.create(
-            settings=obj,
-            message=obj.message.letter_subject,
-            date=datetime.now(),
-            status=True,
-            server_answer='delivered'
+            mailing=obj,
+            last_attempt=datetime.now(),
+            status='delivered',
+            server_code='delivered'
 
         )
     except Exception as e:
 
         # запись в таблицу ошибки
         mail_attempt = Attempt.objects.create(
-            settings=obj,
-            message=obj.message.theme,
-            date=datetime.now(),
-            status=False,
-            server_answer=str(e)
+            mailing=obj,
+            last_attempt=datetime.now(),
+            status='not_delivered',
+            server_code=str(e)
 
         )
 
