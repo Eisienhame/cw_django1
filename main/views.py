@@ -35,9 +35,9 @@ class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesT
     permission_required = 'main.view_mailing'
 
     def test_func(self):
-        """Находится ли в группе managers"""
+        """Находится ли в группе managers или создатель"""
         obj = self.get_object()
-        return self.request.user.groups.filter(name='managers').exists()
+        return self.request.user == obj.author or self.request.user.groups.filter(name='managers').exists()
 
 class MailingCreateView(LoginRequiredMixin, generic.CreateView):
     model = Mailing
