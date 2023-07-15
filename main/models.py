@@ -69,7 +69,10 @@ class Mailing(models.Model):
         verbose_name = 'рассылка'
         verbose_name_plural = 'рассылки'
         ordering = ('name',)
-
+        permissions = [
+            ('deactivate_mailing',
+             'Deactivate_mailing',)
+        ]
 
 
 

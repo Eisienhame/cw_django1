@@ -1,7 +1,9 @@
-from django.forms import inlineformset_factory
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.views import generic
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from main.models import Mailing, Client, Message
 from blog.models import Blog
 from main.forms import MailingForm, ClientForm
@@ -28,10 +30,14 @@ class MailingListView(LoginRequiredMixin, generic.ListView):
     model = Mailing
 
 
-class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
+class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, generic.DetailView):
     model = Mailing
     permission_required = 'main.view_mailing'
 
+    def test_func(self):
+        """Находится ли в группе managers"""
+        obj = self.get_object()
+        return self.request.user.groups.filter(name='managers').exists()
 
 class MailingCreateView(LoginRequiredMixin, generic.CreateView):
     model = Mailing
@@ -118,3 +124,17 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Del
 class MessageUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Message
     success_url = reverse_lazy('main:message_list')
+
+
+@permission_required('main.deactivate_mailing')
+def deactive_mailing(request, pk):
+    #Отключить рассылку
+
+    obj = Mailing.objects.get(pk=pk)
+
+    if obj.status == 'CREATED' or 'LAUNCHED':
+        obj.status = 'COMPLETED'
+        obj.save()
+
+    return redirect(reverse('main:mailing_list'))
+

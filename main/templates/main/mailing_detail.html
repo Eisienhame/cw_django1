@@ -8,6 +8,10 @@
         <p class="card-text">{{ mailing.periodicity }}</p>
         <p class="card-text">{{ mailing.status }}</p>
 
+
+        {% if perms.main.deactive_mailing %}
+            <p><a href="{% url 'main:deactive_mailing' object.pk %}" class="btn btn-danger">Отключить </a></p>
+         {%endif%}
         <div class="card-footer">
             <a href="{% url 'main:mailing_list' %}" class="btn btn-primary"><< Назад</a>
         </div>>
