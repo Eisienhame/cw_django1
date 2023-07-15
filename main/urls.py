@@ -9,13 +9,13 @@ app_name = MainConfig.name
 
 urlpatterns = [
 
-    path('', HomeView.as_view(), name='homepage'),
+    path('', cache_page(60)(HomeView.as_view()), name='homepage'),
     path('mailing_list/', MailingListView.as_view(), name='mailing_list'),
     path('mailing_list/create/', MailingCreateView.as_view(), name='mailing_create'),
     path('mailing_list/delete/<int:pk>/', MailingDeleteView.as_view(), name='mailing_delete'),
     path('mailing_list/<int:pk>/', MailingDetailView.as_view(), name='mailing_detail'),
     path('mailing_list/update/<int:pk>/', MailingUpdateView.as_view(), name='mailing_update'),
-    path('client_list/', ClientListView.as_view(), name='client_list'),
+    path('client_list/', cache_page(60)(ClientListView.as_view()), name='client_list'),
     path('client_list/create/', ClientCreateView.as_view(), name='client_create'),
     path('client_list/delete/<int:pk>/', ClientDeleteView.as_view(), name='client_delete'),
     path('client_list/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),

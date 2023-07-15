@@ -154,3 +154,11 @@ LOGIN_URL = '/users/'
 CRONJOBS = [
     ('0 */5 * * *', 'main.services.send_manager')
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": 'redis://127.0.0.1:6379',
+        "TIMEOUT": 60,
+    }
+}
