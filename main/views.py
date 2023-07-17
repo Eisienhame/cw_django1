@@ -132,7 +132,7 @@ def deactive_mailing(request, pk):
 
     obj = Mailing.objects.get(pk=pk)
 
-    if obj.status == 'CREATED' or 'LAUNCHED':
+    if (obj.status == 'CREATED') or (obj.status == 'LAUNCHED'):
         obj.status = 'COMPLETED'
         obj.save()
 

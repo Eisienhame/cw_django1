@@ -90,7 +90,7 @@ class Attempt(models.Model):
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='рассылка')
     last_attempt = models.DateTimeField(verbose_name='Дата последней попытки', **NULLABLE)
     status = models.CharField(max_length=50, choices=STATUS, default=NOT_DELIVERED, verbose_name='статус')
-    server_code = models.CharField(verbose_name='Ответ сервера', **NULLABLE)
+    server_code = models.CharField(max_length=50, verbose_name='Ответ сервера', **NULLABLE)
 
     def __str__(self):
         return f'{self.mailing}'
